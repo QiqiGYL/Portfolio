@@ -9,8 +9,8 @@ export const projects = [
     blurb:
       "Turn unstructured diary notes into a mood calendar with day detail, scoped stats, and charts meant for review — not just a heatmap.",
     tags: ["React", "FastAPI", "SQLite", "Docker"],
-    status: "soon",
-    href: null,
+    status: "github",
+    href: "https://github.com/QiqiGYL/MoodCalendar",
     accent: "#1f6f5b",
   },
   {

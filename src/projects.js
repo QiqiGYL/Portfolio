@@ -1,5 +1,5 @@
 /**
- * Add / edit projects here — then push; Cloudflare Pages will redeploy.
+ * Edit contact + projects here — push to GitHub, Cloudflare Pages redeploys.
  * status: "live" | "github" | "soon"
  */
 export const projects = [
@@ -7,7 +7,7 @@ export const projects = [
     id: "moodcalendar",
     title: "Mood Calendar",
     blurb:
-      "Turn unstructured diary notes into a mood calendar with day detail, scoped stats, and charts meant for review — not just a heatmap.",
+      "Parse messy diary notes into a calendar you can actually browse — day detail, scoped stats, and charts meant for review.",
     tags: ["React", "FastAPI", "SQLite", "Docker"],
     status: "github",
     href: "https://github.com/QiqiGYL/MoodCalendar",
@@ -16,7 +16,7 @@ export const projects = [
   {
     id: "jobhunter",
     title: "JobHunter",
-    blurb: "A personal job-search companion project — tracking and tooling around the hunt.",
+    blurb: "A personal job-search companion — tracking applications and tooling around the hunt.",
     tags: ["Full-stack"],
     status: "github",
     href: "https://github.com/QiqiGYL/JobHunter",
@@ -25,8 +25,8 @@ export const projects = [
   {
     id: "vancouver-parcel",
     title: "Vancouver Parcel Lot Analysis",
-    blurb: "Spatial analysis tooling for Vancouver parcel / lot data.",
-    tags: ["Data", "Analysis"],
+    blurb: "Spatial analysis tooling for Vancouver parcel and lot data.",
+    tags: ["Data", "GIS", "Analysis"],
     status: "github",
     href: "https://github.com/QiqiGYL/Vancouver-Parcel-Lot-Analysis-Tool",
     accent: "#5c4d3c",
@@ -34,7 +34,7 @@ export const projects = [
   {
     id: "housing-price",
     title: "Housing Price Prediction",
-    blurb: "Model work around housing price prediction.",
+    blurb: "Exploratory model work around housing price prediction.",
     tags: ["ML", "Python"],
     status: "github",
     href: "https://github.com/QiqiGYL/Housing-Price-Predicion-Model",
@@ -45,9 +45,11 @@ export const projects = [
 export const profile = {
   name: "Grace Yue Li",
   handle: "graceyueli.com",
-  role: "Builder · full-stack & data-minded projects",
+  role: "Open to work · full-stack & data",
   line: "I turn messy notes and real workflows into tools you can actually open and use.",
-  email: "",
+  availability: "Looking for full-stack / software / data roles — happy to chat.",
+  email: "graceyliy29@gmail.com",
   github: "https://github.com/QiqiGYL",
-  linkedin: "",
+  linkedin: "", // e.g. "https://www.linkedin.com/in/your-id"
+  location: "Open to remote & China / North America opportunities",
 };

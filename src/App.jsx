@@ -7,9 +7,13 @@ function statusLabel(status) {
 }
 
 export default function App() {
+  const mail = profile.email ? `mailto:${profile.email}` : null;
+
   return (
     <div className="page">
       <div className="atmosphere" aria-hidden="true" />
+      <div className="orb orb-a" aria-hidden="true" />
+      <div className="orb orb-b" aria-hidden="true" />
 
       <header className="top">
         <a className="mark" href="#top">
@@ -17,6 +21,7 @@ export default function App() {
         </a>
         <nav>
           <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
@@ -25,23 +30,28 @@ export default function App() {
 
       <main id="top">
         <section className="hero">
-          <p className="eyebrow reveal">{profile.role}</p>
+          <p className="eyebrow reveal">
+            <span className="pulse-dot" aria-hidden="true" />
+            {profile.role}
+          </p>
           <h1 className="brand reveal delay-1">{profile.name}</h1>
           <p className="lede reveal delay-2">{profile.line}</p>
           <div className="cta reveal delay-3">
             <a className="btn primary" href="#work">
               View projects
             </a>
-            <a className="btn ghost" href={profile.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
+            {mail && (
+              <a className="btn ghost" href={mail}>
+                Email me
+              </a>
+            )}
           </div>
         </section>
 
         <section className="work" id="work">
           <div className="section-head">
             <h2>Selected work</h2>
-            <p>Small, concrete builds. Add the next one in <code>src/projects.js</code>.</p>
+            <p>Concrete builds across full-stack, data, and applied ML.</p>
           </div>
 
           <ul className="project-list">
@@ -74,11 +84,44 @@ export default function App() {
             })}
           </ul>
         </section>
+
+        <section className="contact" id="contact">
+          <div className="contact-panel reveal">
+            <p className="eyebrow">
+              <span className="pulse-dot" aria-hidden="true" />
+              Open to opportunities
+            </p>
+            <h2>Let&apos;s talk</h2>
+            <p className="contact-copy">{profile.availability}</p>
+            <p className="contact-meta">{profile.location}</p>
+            <div className="contact-links">
+              {mail && (
+                <a className="btn primary" href={mail}>
+                  {profile.email}
+                </a>
+              )}
+              <a className="btn ghost" href={profile.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+              {profile.linkedin && (
+                <a className="btn ghost" href={profile.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="foot">
         <strong>{profile.name}</strong>
-        <span>{profile.handle}</span>
+        <div className="foot-links">
+          {mail && <a href={mail}>Email</a>}
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <span>{profile.handle}</span>
+        </div>
       </footer>
     </div>
   );

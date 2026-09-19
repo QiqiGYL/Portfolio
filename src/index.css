@@ -60,11 +60,14 @@ a {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background:
-    radial-gradient(ellipse 80% 55% at 0% 0%, rgba(31, 111, 91, 0.28), transparent 55%),
-    radial-gradient(ellipse 60% 45% at 100% 15%, rgba(72, 112, 138, 0.2), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 70% 100%, rgba(140, 150, 120, 0.18), transparent 55%),
-    linear-gradient(160deg, #f1f6f2 0%, #e2eae4 48%, #d5dfd8 100%);
+  background: linear-gradient(160deg, #f1f6f2 0%, #e2eae4 48%, #d5dfd8 100%);
+  pointer-events: none;
+}
+
+.atmosphere .aurora-container {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
 }
 
 .grain {
@@ -381,6 +384,14 @@ nav a:focus-visible {
   border: 1px solid rgba(18, 26, 22, 0.05);
 }
 
+.magnet-btn {
+  display: inline-block;
+}
+
+.lede.blur-text {
+  margin: 26px 0 0;
+}
+
 .project-core {
   display: grid;
   grid-template-columns: 7px 1fr;
@@ -647,10 +658,16 @@ a.project-core:hover .open-hint {
   .reveal-on-scroll,
   .btn,
   .project-core,
-  .open-hint {
+  .open-hint,
+  .blur-text span {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
+  }
+
+  .atmosphere .aurora-container {
+    display: none;
   }
 }

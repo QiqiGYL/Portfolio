@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+import Aurora from "./components/Aurora.jsx";
+import BlurText from "./components/BlurText.jsx";
+import Magnet from "./components/Magnet.jsx";
+import SpotlightCard from "./components/SpotlightCard.jsx";
 import { profile, projects } from "./projects.js";
 
 function statusLabel(status) {
@@ -43,7 +47,15 @@ export default function App() {
 
   return (
     <div className="page">
-      <div className="atmosphere" aria-hidden="true" />
+      <div className="atmosphere" aria-hidden="true">
+        <Aurora
+          colorStops={["#1f6f5b", "#c5ddd2", "#6d8ea3"]}
+          amplitude={0.85}
+          blend={0.42}
+          speed={0.55}
+          lightMode
+        />
+      </div>
       <div className="grain" aria-hidden="true" />
 
       <a className="skip" href="#work">
@@ -73,21 +85,33 @@ export default function App() {
               {profile.role}
             </p>
             <h1 className="brand reveal-load delay-1">{profile.name}</h1>
-            <p className="lede reveal-load delay-2">{profile.line}</p>
+            <BlurText
+              as="p"
+              className="lede"
+              text={profile.line}
+              delay={70}
+              animateBy="words"
+              direction="bottom"
+              stepDuration={0.28}
+            />
             <div className="cta reveal-load delay-3">
-              <a className="btn primary group" href="#work">
-                <span>View projects</span>
-                <span className="btn-orb">
-                  <ArrowIcon />
-                </span>
-              </a>
-              {mail && (
-                <a className="btn ghost group" href={mail}>
-                  <span>Email me</span>
-                  <span className="btn-orb muted">
+              <Magnet padding={80} magnetStrength={8} wrapperClassName="magnet-btn">
+                <a className="btn primary group" href="#work">
+                  <span>View projects</span>
+                  <span className="btn-orb">
                     <ArrowIcon />
                   </span>
                 </a>
+              </Magnet>
+              {mail && (
+                <Magnet padding={80} magnetStrength={8} wrapperClassName="magnet-btn">
+                  <a className="btn ghost group" href={mail}>
+                    <span>Email me</span>
+                    <span className="btn-orb muted">
+                      <ArrowIcon />
+                    </span>
+                  </a>
+                </Magnet>
               )}
             </div>
           </div>
@@ -131,7 +155,7 @@ export default function App() {
                   className={`bento-item reveal-on-scroll ${project.featured ? "featured" : ""}`}
                   style={{ "--i": index }}
                 >
-                  <div className="bezel">
+                  <SpotlightCard className="bezel">
                     <Tag className="project-core" {...linkProps}>
                       <div className="project-rail" style={{ background: project.accent }} />
                       <div className="project-body">
@@ -155,7 +179,7 @@ export default function App() {
                         </div>
                       </div>
                     </Tag>
-                  </div>
+                  </SpotlightCard>
                 </li>
               );
             })}

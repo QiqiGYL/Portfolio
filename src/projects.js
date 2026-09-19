@@ -50,6 +50,6 @@ export const profile = {
   availability: "Looking for full-stack / software / data roles — happy to chat.",
   email: "graceyliy29@gmail.com",
   github: "https://github.com/QiqiGYL",
-  linkedin: "", // e.g. "https://www.linkedin.com/in/your-id"
+  linkedin: "https://www.linkedin.com/in/grace-li-045794169/",
   location: "Open to remote & China / North America opportunities",
 };

@@ -6,8 +6,8 @@
   --accent: #1f6f5b;
   --accent-soft: rgba(31, 111, 91, 0.12);
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --display: "Syne", "Segoe UI", sans-serif;
-  --sans: "Outfit", "Segoe UI", sans-serif;
+  --display: "Fraunces", "Times New Roman", serif;
+  --sans: "Manrope", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
   font-family: var(--sans);
@@ -140,7 +140,7 @@ nav a:focus-visible {
 }
 
 .hero-copy {
-  max-width: 18ch;
+  max-width: none;
 }
 
 .status-pill {
@@ -182,11 +182,12 @@ nav a:focus-visible {
 .brand {
   margin: 0;
   font-family: var(--display);
-  font-weight: 750;
-  font-size: clamp(3.4rem, 10vw, 6.6rem);
-  line-height: 0.9;
-  letter-spacing: -0.045em;
-  text-wrap: balance;
+  font-weight: 650;
+  font-size: clamp(2.8rem, 7.5vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  max-width: none;
 }
 
 .lede {
@@ -285,10 +286,10 @@ nav a:focus-visible {
 .aside-title {
   margin: 12px 0 0;
   font-family: var(--display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
 }
 
 .aside-meta {
@@ -344,10 +345,10 @@ nav a:focus-visible {
 .contact-core h2 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-  font-weight: 750;
-  letter-spacing: -0.035em;
-  line-height: 1;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
@@ -363,16 +364,13 @@ nav a:focus-visible {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
-.bento-item {
-  grid-column: span 6;
-}
-
+.bento-item,
 .bento-item.featured {
-  grid-column: span 12;
+  grid-column: auto;
 }
 
 .bezel {
@@ -429,9 +427,9 @@ a.project-core:hover {
 .project-top h3 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
-  font-weight: 720;
-  letter-spacing: -0.03em;
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
 }
 
 .project-body p {
@@ -603,9 +601,14 @@ a.project-core:hover .open-hint {
     max-width: none;
   }
 
+  .brand {
+    white-space: normal;
+    font-size: clamp(2.6rem, 12vw, 4.2rem);
+  }
+
   .bento-item,
   .bento-item.featured {
-    grid-column: span 12;
+    grid-column: auto;
   }
 }
 

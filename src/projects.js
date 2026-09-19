@@ -1,6 +1,7 @@
 /**
  * Edit contact + projects here — push to GitHub, Cloudflare Pages redeploys.
  * status: "live" | "github" | "soon"
+ * featured: larger tile in the work grid
  */
 export const projects = [
   {
@@ -12,6 +13,7 @@ export const projects = [
     status: "github",
     href: "https://github.com/QiqiGYL/MoodCalendar",
     accent: "#1f6f5b",
+    featured: true,
   },
   {
     id: "jobhunter",
@@ -21,6 +23,7 @@ export const projects = [
     status: "github",
     href: "https://github.com/QiqiGYL/JobHunter",
     accent: "#2c5f7c",
+    featured: false,
   },
   {
     id: "vancouver-parcel",
@@ -30,6 +33,7 @@ export const projects = [
     status: "github",
     href: "https://github.com/QiqiGYL/Vancouver-Parcel-Lot-Analysis-Tool",
     accent: "#5c4d3c",
+    featured: false,
   },
   {
     id: "housing-price",
@@ -39,6 +43,7 @@ export const projects = [
     status: "github",
     href: "https://github.com/QiqiGYL/Housing-Price-Predicion-Model",
     accent: "#3d4f5f",
+    featured: false,
   },
 ];
 

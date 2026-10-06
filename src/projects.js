@@ -1,17 +1,19 @@
 /**
  * Edit contact + projects here — push to GitHub, Cloudflare Pages redeploys.
- * status: "live" | "github" | "soon"
+ * status: "live" | "github" | "blog" | "soon"
  * featured: larger tile in the work grid
+ * internal: true → React Router link (same site)
  */
 export const projects = [
   {
-    id: "moodcalendar",
-    title: "Mood Calendar",
+    id: "nrc-ckks-blog",
+    title: "Sweeping 760K CKKS Parameter Sets",
     blurb:
-      "Parse messy diary notes into a calendar you can actually browse — day detail, scoped stats, and charts meant for review.",
-    tags: ["React", "FastAPI", "SQLite", "Docker"],
-    status: "github",
-    href: "https://github.com/QiqiGYL/MoodCalendar",
+      "NRC co-op write-up: 760k CKKS parameter sets measured end-to-end — OpenFHE C++ extensions, a two-week precision pipeline, SQLite + GUI, and operation benchmarks.",
+    tags: ["C++", "OpenFHE", "Python", "SQLite"],
+    status: "blog",
+    href: "/blog/nrc-ckks",
+    internal: true,
     accent: "#1f6f5b",
     featured: true,
   },

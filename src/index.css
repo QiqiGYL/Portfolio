@@ -86,6 +86,46 @@ a {
   display: flex;
   justify-content: center;
   padding: 18px 16px 0;
+  transition: transform 340ms var(--ease), opacity 280ms var(--ease);
+  will-change: transform;
+}
+
+.nav-spacer {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .nav-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 12px 14px 0;
+  }
+
+  .nav-wrap.is-hidden {
+    transform: translateY(calc(-100% - 8px));
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-spacer {
+    display: block;
+    height: var(--nav-h, 112px);
+    flex-shrink: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-wrap {
+    transition: none;
+  }
+
+  .nav-wrap.is-hidden {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .nav-island {

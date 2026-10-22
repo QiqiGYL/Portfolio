@@ -18,6 +18,17 @@ export const projects = [
     featured: true,
   },
   {
+    id: "decision-arena",
+    title: "Decision Arena",
+    blurb:
+      "A game-flavored decision arena — weigh options with event scores, crown the best pick, or settle ties in a PK battle. Pure frontend, live on this site.",
+    tags: ["JavaScript", "UI", "Game"],
+    status: "live",
+    href: "/fun/decision-arena/",
+    accent: "#b85c38",
+    featured: false,
+  },
+  {
     id: "jobhunter",
     title: "JobHunter",
     blurb: "A personal job-search companion — tracking applications and tooling around the hunt.",

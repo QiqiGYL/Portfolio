@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>决策竞技场 · Decision Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+SC:wght@500;700&family=Cinzel:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="parchment-noise" aria-hidden="true"></div>
+  <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+
+  <div id="arena-stage" class="arena-stage">
+    <header class="site-header">
+      <div class="logo-block">
+        <p class="logo-mark" data-i18n="logoMark">任务日志</p>
+        <h1 class="brand" data-i18n="brand">决策竞技场</h1>
+        <p class="tagline" data-i18n="tagline">称量利弊 · 选出最优路线</p>
+      </div>
+      <div class="header-actions">
+        <div class="export-menu">
+          <button type="button" class="game-btn ghost" id="btn-export" data-i18n="export" aria-expanded="false" aria-haspopup="true" aria-controls="export-dropdown">导出 ▾</button>
+          <div class="export-dropdown" id="export-dropdown" hidden role="menu">
+            <button type="button" class="export-item" role="menuitem" data-export="pdf" data-i18n="exportPdf">导出 PDF</button>
+            <button type="button" class="export-item" role="menuitem" data-export="md" data-i18n="exportMd">导出 Markdown</button>
+            <button type="button" class="export-item" role="menuitem" data-export="json" data-i18n="exportJson">导出 JSON</button>
+            <button type="button" class="export-item" role="menuitem" data-export="import" data-i18n="importJson">导入 JSON</button>
+          </div>
+        </div>
+        <div class="toggle-group" role="group">
+          <button type="button" class="toggle-btn" id="btn-lang" data-i18n-title="langToggleTitle" title="切换语言">
+            <span class="toggle-label" id="lang-label">EN</span>
+          </button>
+          <button type="button" class="toggle-btn" id="btn-theme" data-i18n-title="themeToggleTitle" title="切换主题">
+            <span class="theme-icon" aria-hidden="true">☀</span>
+            <span class="sr-only" data-i18n="themeToggle">主题</span>
+          </button>
+        </div>
+        <button type="button" class="game-btn ghost" id="btn-reset" data-i18n="reset" data-i18n-title="resetTitle" title="重置全部">重置</button>
+        <button type="button" class="game-btn primary" id="btn-add-option" data-i18n="addOption">+ 新增选项</button>
+      </div>
+    </header>
+
+    <section class="legend-bar" data-i18n-aria="legendAria" aria-label="分数说明">
+      <span class="legend-item"><i class="dot neg"></i> <span data-i18n="legendNeg">-10 极差</span></span>
+      <span class="legend-item"><i class="dot zero"></i> <span data-i18n="legendZero">0 中立</span></span>
+      <span class="legend-item"><i class="dot pos"></i> <span data-i18n="legendPos">+10 极优</span></span>
+      <span class="legend-item winner-hint" data-i18n="winnerHint">最高分自动加冕「最佳选择」</span>
+    </section>
+
+    <main id="options-board" class="options-board" aria-live="polite"></main>
+
+    <div class="pk-dock" id="pk-dock">
+      <button type="button" class="pk-btn" id="btn-pk">
+        <span class="pk-btn-main" data-i18n="pkStart">PK 对决</span>
+        <span class="pk-btn-sub" data-i18n="pkStartSub">VERSUS START</span>
+      </button>
+      <div class="settle-bar" id="settle-bar" hidden>
+        <div class="settle-victory" aria-hidden="false">
+          <span class="settle-crown" aria-hidden="true">👑</span>
+          <span class="settle-victory-text" data-i18n="victory">VICTORY</span>
+        </div>
+        <button type="button" class="undo-btn" id="btn-undo">
+          <span class="undo-icon" aria-hidden="true">⟲</span>
+          <span class="undo-text">
+            <span data-i18n="undoBattle">撤销对局</span>
+            <small data-i18n="undoBattleSub">回到对比模式</small>
+          </span>
+        </button>
+      </div>
+      <p class="pk-status" id="pk-status" hidden></p>
+    </div>
+
+    <footer class="site-footer">
+      <p data-i18n="footer">决策矩阵 · RPG 模式</p>
+    </footer>
+  </div>
+
+  <div id="victory-overlay" class="victory-overlay" hidden aria-live="assertive">
+    <div class="victory-badge">
+      <span class="victory-ko" data-i18n="ko">K.O.</span>
+      <span class="victory-title" data-i18n="victory">VICTORY</span>
+      <span class="victory-name" id="victory-name"></span>
+    </div>
+  </div>
+
+  <div id="vs-flash" class="vs-flash" hidden aria-hidden="true">
+    <span data-i18n="vs">VS</span>
+  </div>
+
+  <input type="file" id="import-json-input" class="sr-only" accept=".json,application/json" tabindex="-1" />
+  <div id="print-root" class="print-root" hidden aria-hidden="true"></div>
+
+  <template id="option-card-template">
+    <article class="option-card" data-option-id="">
+      <div class="card-frame">
+        <header class="card-header">
+          <div class="champion-banner" hidden data-i18n="championTitle">👑 最佳决策</div>
+          <div class="rank-badge" hidden data-i18n="bestChoice">最佳选择</div>
+          <label class="sr-only" data-i18n="optionNameLabel">选项名称</label>
+          <input type="text" class="option-name" maxlength="40" data-i18n-placeholder="optionPlaceholder" placeholder="输入选项名称…" autocomplete="off" />
+          <button type="button" class="icon-btn delete-option" data-i18n-title="deleteOption" data-i18n-aria="deleteOption" title="删除此选项" aria-label="删除此选项">×</button>
+        </header>
+        <div class="score-panel">
+          <div class="score-meta">
+            <span class="score-label" data-i18n="totalPower">总战力</span>
+            <span class="score-value" data-score>0</span>
+          </div>
+          <div class="hp-track" role="meter" aria-valuemin="-100" aria-valuemax="100" aria-valuenow="0">
+            <div class="hp-fill" data-hp-fill></div>
+            <div class="hp-zero-mark"></div>
+          </div>
+        </div>
+        <ul class="events-list" data-events></ul>
+        <button type="button" class="game-btn add-event" data-i18n="addEvent">+ 添加事件</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="event-row-template">
+    <li class="event-row" data-event-id="">
+      <textarea class="event-name" rows="1" maxlength="200" data-i18n-placeholder="eventPlaceholder" placeholder="影响事件 / 因素…"></textarea>
+      <div class="event-controls">
+        <div class="scale-control">
+          <button type="button" class="scale-btn dec" data-i18n-aria="decreaseScore" aria-label="降低分数">−</button>
+          <input type="range" class="scale-slider" min="-10" max="10" step="1" value="0" data-i18n-aria="eventScore" aria-label="事件分数" />
+          <input type="number" class="scale-number" min="-10" max="10" step="1" value="0" data-i18n-aria="eventScoreValue" aria-label="事件分数数值" />
+          <button type="button" class="scale-btn inc" data-i18n-aria="increaseScore" aria-label="提高分数">+</button>
+        </div>
+        <button type="button" class="icon-btn delete-event" data-i18n-title="deleteEvent" data-i18n-aria="deleteEvent" title="删除事件" aria-label="删除事件">×</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

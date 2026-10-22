@@ -667,6 +667,48 @@ a.project-core:hover .open-hint {
   }
 }
 
+.fun-page {
+  width: min(100% - 40px, 1180px);
+  margin: 28px auto 80px;
+}
+
+.fun-page .section-head h1 {
+  margin: 10px 0 0;
+  font-family: var(--display);
+  font-weight: 650;
+  font-size: clamp(2.15rem, 5vw, 3.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.fun-grid {
+  margin-top: 28px;
+}
+
+.fun-meta {
+  margin: 10px 4px 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.fun-meta a {
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.fun-back {
+  margin-top: 36px;
+}
+
+.fun-back a {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.fun-back a:hover {
+  color: var(--ink);
+}
+
 .blog {
   width: min(100% - 40px, 920px);
   margin: 28px auto 80px;
@@ -851,7 +893,8 @@ a.project-core:hover .open-hint {
   .work,
   .contact,
   .foot,
-  .blog {
+  .blog,
+  .fun-page {
     width: min(100% - 28px, 1180px);
   }
 

@@ -92,6 +92,9 @@ export default function SiteShell({ children, active = "home" }) {
             >
               Blog
             </Link>
+            <Link to="/fun" className={active === "fun" ? "is-active" : undefined}>
+              Fun
+            </Link>
             <Link to="/#contact" className={active === "contact" ? "is-active" : undefined}>
               Contact
             </Link>
@@ -118,6 +121,7 @@ export default function SiteShell({ children, active = "home" }) {
             </a>
           )}
           <Link to="/blog/nrc-ckks">Blog</Link>
+          <Link to="/fun">Fun</Link>
           <span>{profile.handle}</span>
         </div>
       </footer>

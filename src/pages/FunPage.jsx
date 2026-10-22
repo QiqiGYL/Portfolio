@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import GameArenaCard from "../components/GameArenaCard.jsx";
 import SiteShell from "../components/SiteShell.jsx";
 import SpotlightCard from "../components/SpotlightCard.jsx";
 import { toys } from "../toys.js";
@@ -33,35 +34,48 @@ export default function FunPage() {
         <ul className="bento fun-grid">
           {toys.map((toy, index) => (
             <li key={toy.id} className="bento-item" style={{ "--i": index }}>
-              <SpotlightCard className="bezel">
-                <a className="project-core" href={toy.href}>
-                  <div className="project-rail" style={{ background: toy.accent }} />
-                  <div className="project-body">
-                    <div className="project-top">
-                      <h3>{toy.title}</h3>
-                      <em className="badge badge-live">Live</em>
-                    </div>
-                    <p>{toy.blurb}</p>
-                    <div className="project-foot">
-                      <div className="tags">
-                        {toy.tags.map((tag) => (
-                          <span key={tag}>{tag}</span>
-                        ))}
+              {toy.variant === "arcade" ? (
+                <GameArenaCard
+                  href={toy.href}
+                  title={toy.title}
+                  blurb={toy.blurb}
+                  tags={toy.tags}
+                  ctaLabel="Play"
+                  github={toy.github}
+                />
+              ) : (
+                <>
+                  <SpotlightCard className="bezel">
+                    <a className="project-core" href={toy.href}>
+                      <div className="project-rail" style={{ background: toy.accent }} />
+                      <div className="project-body">
+                        <div className="project-top">
+                          <h3>{toy.title}</h3>
+                          <em className="badge badge-live">Live</em>
+                        </div>
+                        <p>{toy.blurb}</p>
+                        <div className="project-foot">
+                          <div className="tags">
+                            {toy.tags.map((tag) => (
+                              <span key={tag}>{tag}</span>
+                            ))}
+                          </div>
+                          <span className="open-hint">
+                            Play
+                            <ArrowIcon />
+                          </span>
+                        </div>
                       </div>
-                      <span className="open-hint">
-                        Play
-                        <ArrowIcon />
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </SpotlightCard>
-              {toy.github && (
-                <p className="fun-meta">
-                  <a href={toy.github} target="_blank" rel="noreferrer">
-                    Source on GitHub
-                  </a>
-                </p>
+                    </a>
+                  </SpotlightCard>
+                  {toy.github && (
+                    <p className="fun-meta">
+                      <a href={toy.github} target="_blank" rel="noreferrer">
+                        Source on GitHub
+                      </a>
+                    </p>
+                  )}
+                </>
               )}
             </li>
           ))}

@@ -27,6 +27,7 @@ export const projects = [
     href: "/fun/decision-arena/",
     accent: "#b85c38",
     featured: false,
+    variant: "arcade",
   },
   {
     id: "jobhunter",

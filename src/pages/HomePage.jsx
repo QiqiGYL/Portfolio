@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import BlurText from "../components/BlurText.jsx";
+import GameArenaCard from "../components/GameArenaCard.jsx";
 import Magnet from "../components/Magnet.jsx";
 import SiteShell from "../components/SiteShell.jsx";
 import SpotlightCard from "../components/SpotlightCard.jsx";
@@ -128,6 +129,24 @@ export default function HomePage() {
 
           <ul className="bento">
             {projects.map((project, index) => {
+              if (project.variant === "arcade") {
+                return (
+                  <li
+                    key={project.id}
+                    className={`bento-item reveal-on-scroll ${project.featured ? "featured" : ""}`}
+                    style={{ "--i": index }}
+                  >
+                    <GameArenaCard
+                      href={project.href}
+                      title={project.title}
+                      blurb={project.blurb}
+                      tags={project.tags}
+                      ctaLabel="Enter arena"
+                    />
+                  </li>
+                );
+              }
+
               const clickable = Boolean(project.href);
               const isInternal = Boolean(project.internal);
               const Tag = isInternal ? Link : clickable ? "a" : "div";

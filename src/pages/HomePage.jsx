@@ -141,7 +141,7 @@ export default function HomePage() {
                       title={project.title}
                       blurb={project.blurb}
                       tags={project.tags}
-                      ctaLabel="Enter arena"
+                      ctaLabel="START"
                     />
                   </li>
                 );

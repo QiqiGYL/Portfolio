@@ -40,7 +40,7 @@ export default function FunPage() {
                   title={toy.title}
                   blurb={toy.blurb}
                   tags={toy.tags}
-                  ctaLabel="Play"
+                  ctaLabel="START"
                   github={toy.github}
                 />
               ) : (

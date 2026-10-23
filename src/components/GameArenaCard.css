@@ -4,10 +4,11 @@
 
 .arcade-card {
   --arcade-ink: #1a1a1a;
-  --arcade-brick: #e52521;
+  --arcade-brick: #c84c0c;
+  --arcade-brick-mid: #e45c10;
+  --arcade-brick-hi: #fc9838;
+  --arcade-mortar: #1a1a1a;
   --arcade-coin: #fbd000;
-  --arcade-pipe: #00a800;
-  --arcade-sky: #5c94fc;
   --arcade-cream: rgba(255, 248, 220, 0.72);
 
   position: relative;
@@ -25,7 +26,6 @@
     box-shadow 160ms steps(2, end),
     border-color 160ms steps(2, end),
     background-color 160ms linear;
-  image-rendering: pixelated;
 }
 
 .arcade-map,
@@ -36,16 +36,15 @@
   pointer-events: none;
 }
 
-/* Soft Mario-map wash — sky + brick + coin, semi-transparent */
 .arcade-map {
   opacity: 0.55;
   background:
     linear-gradient(
       135deg,
-      rgba(92, 148, 252, 0.35) 0%,
-      rgba(255, 248, 220, 0.15) 38%,
-      rgba(251, 208, 0, 0.22) 62%,
-      rgba(229, 37, 33, 0.18) 100%
+      rgba(92, 148, 252, 0.32) 0%,
+      rgba(255, 248, 220, 0.12) 38%,
+      rgba(251, 208, 0, 0.2) 62%,
+      rgba(229, 37, 33, 0.14) 100%
     ),
     repeating-linear-gradient(
       0deg,
@@ -59,7 +58,6 @@
     );
 }
 
-/* Dot-matrix / handheld LCD feel on top */
 .arcade-dots {
   opacity: 0.28;
   background-image: radial-gradient(rgba(26, 26, 26, 0.45) 0.7px, transparent 0.8px);
@@ -71,24 +69,59 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 8px 1fr;
+  grid-template-columns: 28px 1fr;
   min-height: 188px;
   height: 100%;
   background: rgba(255, 252, 240, 0.55);
   backdrop-filter: blur(1.5px);
 }
 
+/* NES Mario brick column */
 .arcade-rail {
+  display: flex;
+  flex-direction: column;
+  border-right: 3px solid var(--arcade-mortar);
+  background: var(--arcade-mortar);
+  gap: 2px;
+  padding: 2px 0;
+  overflow: hidden;
+}
+
+.arcade-brick {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 18px;
   background:
-    repeating-linear-gradient(
-      180deg,
-      #e52521 0 10px,
-      #b41814 10px 12px,
-      #fbd000 12px 22px,
-      #d4a000 22px 24px,
-      #00a800 24px 34px,
-      #007a00 34px 36px
-    );
+    linear-gradient(180deg, var(--arcade-brick-hi) 0 3px, transparent 3px),
+    linear-gradient(90deg, rgba(255, 220, 160, 0.35) 0 3px, transparent 3px),
+    linear-gradient(180deg, var(--arcade-brick-mid), var(--arcade-brick));
+  box-shadow:
+    inset -2px -2px 0 rgba(90, 24, 0, 0.45),
+    inset 2px 2px 0 rgba(255, 210, 140, 0.35);
+}
+
+.arcade-brick::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--arcade-mortar);
+  transform: translateY(-50%);
+  opacity: 0.85;
+}
+
+.arcade-brick:nth-child(even)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--arcade-mortar);
+  transform: translateX(-50%);
+  opacity: 0.9;
 }
 
 .arcade-body {
@@ -126,26 +159,35 @@
 
 .arcade-swords {
   flex-shrink: 0;
-  color: var(--arcade-brick);
+  color: #e52521;
 }
 
-.arcade-stage {
+.arcade-live {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin: 0;
-  padding: 7px 9px 6px;
-  border: 3px solid var(--arcade-ink);
-  border-radius: 0;
-  background: var(--arcade-coin);
-  color: var(--arcade-ink);
-  font-family: "Press Start 2P", monospace;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 111, 91, 0.22);
+  background: rgba(31, 111, 91, 0.1);
+  color: #1f6f5b;
+  font-family: var(--sans);
   font-style: normal;
-  font-size: 0.52rem;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  box-shadow: 3px 3px 0 var(--arcade-ink);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+.arcade-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: arcade-pulse 1.6s ease-out infinite;
 }
 
 .arcade-kicker {
@@ -153,7 +195,7 @@
   font-family: "Press Start 2P", monospace;
   font-size: 0.48rem;
   line-height: 1.6;
-  color: var(--arcade-brick);
+  color: #e52521;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
@@ -195,68 +237,80 @@
 }
 
 .arcade-tag-game {
-  background: var(--arcade-brick) !important;
+  background: #e52521 !important;
   color: #fff8dc !important;
   border-color: var(--arcade-ink) !important;
   box-shadow: 2px 2px 0 #7a0f0c !important;
 }
 
-.arcade-cta {
+.arcade-start {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 8px 12px 7px;
   border: 3px solid var(--arcade-ink);
-  background: var(--arcade-pipe);
-  color: #fff;
+  border-radius: 0;
+  background: #fbd000;
+  color: var(--arcade-ink);
   font-family: "Press Start 2P", monospace;
   font-size: 0.52rem;
   line-height: 1;
-  box-shadow: 3px 3px 0 var(--arcade-ink);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--arcade-ink);
+  transition:
+    transform 120ms steps(2, end),
+    box-shadow 120ms steps(2, end);
 }
 
 .arcade-card:hover {
-  border-color: var(--arcade-brick);
+  border-color: #e52521;
   background: rgba(255, 250, 230, 0.82);
   box-shadow: 8px 12px 0 var(--arcade-ink);
 }
 
-.arcade-card:hover .arcade-cta {
-  background: var(--arcade-coin);
-  color: var(--arcade-ink);
+.arcade-card:hover .arcade-start {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--arcade-ink);
 }
 
-.arcade-card:hover .arcade-stage {
-  background: #fff;
-  animation: arcade-blink 0.7s steps(2, end) infinite;
+.arcade-card:active .arcade-start {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--arcade-ink);
 }
 
 .arcade-source {
   margin-top: 10px;
 }
 
-@keyframes arcade-blink {
-  50% {
-    background: var(--arcade-coin);
+@keyframes arcade-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .arcade-card,
-  .arcade-card:hover .arcade-stage {
+  .arcade-pulse {
     animation: none !important;
+  }
+
+  .arcade-card {
     transition: none !important;
   }
 }
 
 @media (max-width: 700px) {
-  .arcade-title-row h3 {
-    font-size: 0.68rem;
+  .arcade-core {
+    grid-template-columns: 22px 1fr;
   }
 
-  .arcade-stage {
-    font-size: 0.46rem;
-    padding: 6px 7px 5px;
+  .arcade-title-row h3 {
+    font-size: 0.68rem;
   }
 }

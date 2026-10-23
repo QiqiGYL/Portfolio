@@ -1,4 +1,4 @@
-import { Flag, Swords } from "lucide-react";
+import { Flag, Gamepad2, Swords } from "lucide-react";
 import { motion } from "motion/react";
 import "./GameArenaCard.css";
 
@@ -33,16 +33,22 @@ export default function GameArenaCard({
         <span className="arcade-dots" aria-hidden="true" />
 
         <div className="arcade-core">
-          <div className="arcade-rail" aria-hidden="true" />
+          <div className="arcade-rail" aria-hidden="true">
+            {Array.from({ length: 8 }, (_, i) => (
+              <span key={i} className="arcade-brick" />
+            ))}
+          </div>
+
           <div className="arcade-body">
             <div className="arcade-top">
               <div className="arcade-title-row">
                 <Swords className="arcade-swords" size={16} strokeWidth={2.5} aria-hidden="true" />
                 <h3>{title}</h3>
               </div>
-              <em className="arcade-stage">
-                <Flag size={11} strokeWidth={2.6} aria-hidden="true" />
-                <span>START</span>
+              <em className="arcade-live">
+                <span className="arcade-pulse" aria-hidden="true" />
+                <Gamepad2 size={13} strokeWidth={2.4} aria-hidden="true" />
+                LIVE
               </em>
             </div>
 
@@ -64,7 +70,10 @@ export default function GameArenaCard({
                   </span>
                 ))}
               </div>
-              <span className="arcade-cta">{ctaLabel} ▸</span>
+              <span className="arcade-start">
+                <Flag size={12} strokeWidth={2.6} aria-hidden="true" />
+                {ctaLabel}
+              </span>
             </div>
           </div>
         </div>
